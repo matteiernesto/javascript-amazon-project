@@ -76,6 +76,9 @@ document.querySelectorAll('.js-add-to-cart')
             productId,
             quantity: 1
         })};
+
+        // Update the cart quantity displayed in the page
+        updateCart();
         console.log(cart);
     })
 });
