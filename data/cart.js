@@ -1,15 +1,24 @@
 // Create the cart containing all the products added
 export const cart = [];
 
-// Update the cart - procedure
-export function updateCart(){
-    // Get the cart element
-    const cartElement = document.querySelector('.js-cart-quantity');
-    let quantity = 0;
-    cart.forEach((item)=>{
-        quantity+=item.quantity;
-    });    
+// Add product - procedure
+export function addToCart(productId){
+    // Get the select item and its value
+    const selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
+    const quantity = Number(selectElement.value);
+    let matchingItem;
+    cart.forEach((cartItem)=>{
+        if(productId === cartItem.productId) matchingItem = cartItem;   
+    });
 
-    // Update the HTML
-    cartElement.innerHTML = quantity;
+    // Check whether I found the element or not
+    if(matchingItem) matchingItem.quantity += quantity;
+    else {
+        cart.push({
+        productId,
+        quantity
+    })};
+
+    // Update the cart quantity displayed in the page
+    console.log(cart);
 }

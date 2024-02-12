@@ -1,6 +1,6 @@
 // Import variables .. -> represents the folder outside
 // We can use "as" for naming exported variables
-import {cart,updateCart} from '../data/cart.js';
+import {cart, addToCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 
 // Get the product grid element
@@ -87,32 +87,30 @@ function addedToCart(productId){
     }
     addToCart.classList.add('added-cart');
 }
+// Update the cart - procedure
+function updateCartQuantity(){
+    // Get the cart element
+    const cartElement = document.querySelector('.js-cart-quantity');
+    let quantity = 0;
+    cart.forEach((cartItem)=>{
+        quantity+=cartItem.quantity;
+    });    
+
+    // Update the HTML
+    cartElement.innerHTML = quantity;
+}
 
 // Make the buttons interactive
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
     button.addEventListener('click',()=>{
         const { productId } = button.dataset;
-        // Get the select item and its value
-        const selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
-        const quantity = Number(selectElement.value);
+
+        // Added animation
         addedToCart(productId);
 
-        let matchingItem;
-        cart.forEach((item)=>{
-            if(productId === item.productId) matchingItem = item;   
-        });
-
-        // Check whether I found the element or not
-        if(matchingItem) matchingItem.quantity += quantity;
-        else {
-            cart.push({
-            productId,
-            quantity
-        })};
-
-        // Update the cart quantity displayed in the page
-        updateCart();
-        console.log(cart);
+        // Add to the cart the product
+        addToCart(productId);
+        updateCartQuantity();
     })
 });
