@@ -1,11 +1,12 @@
 // Import the cart,products modules
-import {cart,removeFromCart} from '../data/cart.js';
+import {cart,removeFromCart,updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
 let cartSummaryHTML = ``;
 // Find the order summary
 const summaryElement = document.querySelector('.js-order-summary');
+document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
 
 cart.forEach((cartItem)=>{ 
     const productId = cartItem.productId;
@@ -108,5 +109,6 @@ document.querySelectorAll('.js-delete-link').forEach((link)=>{
         // Remove the container from the page
         const container = document.querySelector(`.js-cart-item-container-${productId}`)
         container.remove();
+        document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
     });
 });

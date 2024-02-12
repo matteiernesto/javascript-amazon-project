@@ -46,3 +46,14 @@ export function removeFromCart(productId){
     });
     saveToStorage();
 }
+
+// Update the cart - procedure
+export function updateCartQuantity(){
+    let quantity = 0;
+    cart.forEach((cartItem)=>{
+        quantity+=cartItem.quantity;
+    });    
+
+    // Update the HTML
+    return quantity;
+}

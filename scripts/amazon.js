@@ -1,11 +1,12 @@
 // Import variables .. -> represents the folder outside
 // We can use "as" for naming exported variables
-import {cart, addToCart} from '../data/cart.js';
+import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
 // Get the product grid element
 const productsGrid = document.querySelector('.products-grid');
+document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
 
 // Loop through the array in order to generate the HTML
 products.forEach((product)=>{
@@ -88,18 +89,6 @@ function addedToCart(productId){
     }
     addToCart.classList.add('added-cart');
 }
-// Update the cart - procedure
-function updateCartQuantity(){
-    // Get the cart element
-    const cartElement = document.querySelector('.js-cart-quantity');
-    let quantity = 0;
-    cart.forEach((cartItem)=>{
-        quantity+=cartItem.quantity;
-    });    
-
-    // Update the HTML
-    cartElement.innerHTML = quantity;
-}
 
 // Make the buttons interactive
 document.querySelectorAll('.js-add-to-cart')
@@ -112,6 +101,6 @@ document.querySelectorAll('.js-add-to-cart')
 
         // Add to the cart the product
         addToCart(productId);
-        updateCartQuantity();
+        document.querySelector('.js-cart-quantity').innerHTML = updateCartQuantity();
     })
 });
