@@ -1,5 +1,5 @@
 // Import the cart,products modules
-import {cart} from '../data/cart.js';
+import {cart,removeFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -8,7 +8,7 @@ let cartSummaryHTML = ``;
 const summaryElement = document.querySelector('.js-order-summary');
 
 cart.forEach((cartItem)=>{ 
-    const productId = cartItem.productIdid;
+    const productId = cartItem.productId;
 
     let matchingProduct;
 
@@ -20,7 +20,7 @@ cart.forEach((cartItem)=>{
     console.log(matchingProduct);
 
     cartSummaryHTML+=`
-    <div class="cart-item-container">
+    <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
         <div class="delivery-date">
             Delivery date: Tuesday, June 21
         </div>
@@ -56,7 +56,7 @@ cart.forEach((cartItem)=>{
             <div class="delivery-option">
                 <input type="radio" checked
                 class="delivery-option-input"
-                name="delivery-option-${cartItem.productIdid}">
+                name="delivery-option-${cartItem.productId}">
                 <div>
                 <div class="delivery-option-date">
                     Tuesday, June 21
@@ -69,7 +69,7 @@ cart.forEach((cartItem)=>{
             <div class="delivery-option">
                 <input type="radio"
                 class="delivery-option-input"
-                name="delivery-option-${cartItem.productIdid}">
+                name="delivery-option-${cartItem.productId}">
                 <div>
                 <div class="delivery-option-date">
                     Wednesday, June 15
@@ -82,7 +82,7 @@ cart.forEach((cartItem)=>{
             <div class="delivery-option">
                 <input type="radio"
                 class="delivery-option-input"
-                name="delivery-option-${cartItem.productIdid}">
+                name="delivery-option-${cartItem.productId}">
                 <div>
                 <div class="delivery-option-date">
                     Monday, June 13
@@ -103,7 +103,10 @@ summaryElement.innerHTML=cartSummaryHTML;
 document.querySelectorAll('.js-delete-link').forEach((link)=>{
     link.addEventListener('click',()=>{
         const productId = link.dataset.productId;
+        removeFromCart(productId);
 
-        
+        // Remove the container from the page
+        const container = document.querySelector(`.js-cart-item-container-${productId}`)
+        container.remove();
     });
 });
