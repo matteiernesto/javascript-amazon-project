@@ -1,5 +1,5 @@
 // Import the cart,products modules
-import {cart,removeFromCart,updateCartQuantity,getProductQuantity} from '../data/cart.js';
+import {cart,removeFromCart,updateCartQuantity,getProductQuantity,updateFromCart} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -41,7 +41,7 @@ cart.forEach((cartItem)=>{
                 <span>
                 Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
                 </span>
-                <span class="update-quantity-link link-primary js-update-link" data-product-id=${matchingProduct.id}>
+                <span class="update-quantity-link link-primary js-update-link-${matchingProduct.id}" data-product-id=${matchingProduct.id}>
                 Update
                 </span>
                 <input class="quantity-input js-quantity-input-${matchingProduct.id} none">
@@ -103,27 +103,30 @@ cart.forEach((cartItem)=>{
 
 summaryElement.innerHTML=cartSummaryHTML;
 
+// Remova an all container - procedure
+function removeContainer(productId){
+    // Remove the container from the page
+    const container = document.querySelector(`.js-cart-item-container-${productId}`)
+    container.remove();
+    document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
+}
+
 // Deletes a product from the cart
 document.querySelectorAll('.js-delete-link').forEach((link)=>{
     link.addEventListener('click',()=>{
         const productId = link.dataset.productId;
         removeFromCart(productId);
-
-        // Remove the container from the page
-        const container = document.querySelector(`.js-cart-item-container-${productId}`)
-        container.remove();
-        document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
+        removeContainer(productId);
     });
 });
 
 // Update & save a new product quantity in the cart
-document.querySelectorAll('.js-update-link').forEach((link)=>{
+document.querySelectorAll('.update-quantity-link').forEach((link)=>{
     link.addEventListener('click',()=>{
         const productId = link.dataset.productId;
-        const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
 
         // Hide the update label and the current quantity
-        quantityLabel.classList.add('none');
+        document.querySelector(`.js-quantity-label-${productId}`).classList.add('none');
         link.classList.add('none');
 
         // Make the input quantity label and save button appear
@@ -137,10 +140,33 @@ document.querySelectorAll('.js-update-link').forEach((link)=>{
 
 document.querySelectorAll('.save-quantity-link').forEach((link)=>{
     link.addEventListener(('click'),()=>{
-        // Get the product id
+        // Get the product id and the input element
         const productId = link.dataset.productId;
+        const inputElement = document.querySelector(`.js-quantity-input-${productId}`);
 
-        
-        
+        // Quantity
+        let quantity = inputElement.value;
+
+        // Check whether the input label is empty or not
+        if(quantity === '') quantity = getProductQuantity(productId);
+
+        // Update from cart
+        let update = updateFromCart(productId,quantity);
+
+        if(update === 1) {
+            // Make the input quantity label and save button appear
+            document.querySelector(`.js-quantity-input-${productId}`).classList.add('none');
+            document.querySelector(`.js-save-quantity-link-${productId}`).classList.add('none');
+
+            document.querySelector(`.js-quantity-label-${productId}`).classList.remove('none');
+            document.querySelector(`.js-quantity-label-${productId}`).innerHTML = getProductQuantity(productId);
+            document.querySelector(`.js-update-link-${productId}`).classList.remove('none');
+            document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
+        } else if(update === 0) {
+            removeFromCart(productId);
+            removeContainer(productId);
+        } else {
+            alert('Please insert a valid quantity!');
+        }
     });
 })

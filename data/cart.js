@@ -47,6 +47,32 @@ export function removeFromCart(productId){
     saveToStorage();
 }
 
+// Update a product - procedure
+// Returns 1 if the procedure has succeded
+// Returns -1 if the procedure has failed
+// Returns 0 if the product has been deleted
+export function updateFromCart(productId,quantity){
+    // Get the number
+    let q = Number(quantity);
+
+    // Check if the quantity is 0
+    if(q === 0){
+        console.log('Rimosso!');
+        removeFromCart(productId);
+        return 0;
+    } else if(q < 0 || isNaN(q) || !Number.isInteger(q)) return -1;
+    else if(q!=getProductQuantity(productId)) {
+        // Find the product and change its quantity
+        cart.forEach((cartItem)=>{
+            if(cartItem.productId === productId) cartItem.quantity = q;
+        })
+        saveToStorage();
+        return 1;
+    }
+
+    return 1;
+}
+
 // Update the cart - procedure
 export function updateCartQuantity(){
     let quantity = 0;
@@ -69,5 +95,5 @@ export function getProductQuantity(productId){
     })
 
     // Return the value
-    return quantity;
+    return Number(quantity);
 }
