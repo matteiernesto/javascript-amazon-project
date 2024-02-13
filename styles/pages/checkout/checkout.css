@@ -200,6 +200,18 @@
   padding-top: 18px;
 }
 
+.quantity-input{
+  width: 30px;
+}
+
+.none{
+  display: none;
+}
+
+.is-editing-quantity{
+  display: block;
+}
+
 .place-order-button {
   width: 100%;
   padding-top: 12px;

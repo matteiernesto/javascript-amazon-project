@@ -1,5 +1,5 @@
 // Create the cart containing all the products added
-export const cart = JSON.parse(localStorage.getItem('cart'));
+export let cart = JSON.parse(localStorage.getItem('cart'));
 
 if(!cart) {
     cart = [{
@@ -55,5 +55,19 @@ export function updateCartQuantity(){
     });    
 
     // Update the HTML
+    return quantity;
+}
+
+// Get the product quantity
+export function getProductQuantity(productId){
+    // Return value
+    let quantity = 0;
+
+    // Search for it
+    cart.forEach((cartItem)=>{
+        if(cartItem.productId === productId) quantity = cartItem.quantity;
+    })
+
+    // Return the value
     return quantity;
 }
