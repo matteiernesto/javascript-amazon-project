@@ -23,10 +23,7 @@ export function addToCart(productId){
     // Get the select item and its value
     const selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
     const quantity = Number(selectElement.value);
-    let matchingItem;
-    cart.forEach((cartItem)=>{
-        if(productId === cartItem.productId) matchingItem = cartItem;   
-    });
+    let matchingItem = getProduct(productId);
 
     // Check whether I found the element or not
     if(matchingItem) matchingItem.quantity += quantity;
@@ -87,7 +84,7 @@ export function updateCartQuantity(){
     return quantity;
 }
 
-// Get the product quantity
+// Get the product quantity - function
 export function getProductQuantity(productId){
     // Return value
     let quantity = 0;
@@ -100,3 +97,29 @@ export function getProductQuantity(productId){
     // Return the value
     return Number(quantity);
 }
+
+// Get a product from the cart - function
+function getProduct(productId){
+    // Return value
+    let ret;
+    // Loop through the cart and find the product
+    cart.forEach((cartItem)=>{
+        if(productId === cartItem.productId) {  
+            ret = cartItem;
+        }
+    });    
+
+    // Return the value
+    return ret;
+}
+
+// Update the delivery option of a product - procedure
+export function updateDeliveryOption(productId,deliveryOptionId){
+    // Get the product
+    let product = getProduct(productId);
+
+    // Update the delivery option
+    product.deliveryOptionId = deliveryOptionId;
+    saveToStorage();
+}
+
