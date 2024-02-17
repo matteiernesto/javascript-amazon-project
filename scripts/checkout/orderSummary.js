@@ -2,16 +2,10 @@
 import {cart,removeFromCart,updateCartQuantity,getProductQuantity,updateFromCart,updateDeliveryOption} from '../../data/cart.js';
 import {products} from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
-import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import {deliveryOptions} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 // Default exports (ESM version -> Ecmascript module)
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-
-hello();
-let today = dayjs();
-today = today.add(7,'day');
-console.log(today.format('dddd, MMMM D'));
 
 let cartSummaryHTML = ``;
 
