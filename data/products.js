@@ -658,3 +658,17 @@ export const products = [
     ]
   }
 ];
+
+// Get the product
+export function getProduct(productId){
+  // Ret value
+  let ret;
+
+  // Loop through the cart and find the product
+  products.forEach((product)=>{
+    if(product.id === productId) ret = product;
+  });
+
+  // Return the value
+  return ret;
+}

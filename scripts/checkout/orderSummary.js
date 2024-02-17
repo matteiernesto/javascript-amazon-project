@@ -4,6 +4,7 @@ import {products} from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
 import {hello} from 'https://unpkg.com/supersimpledev@1.0.1/hello.esm.js';
 import {deliveryOptions} from '../../data/deliveryOptions.js';
+import { renderPaymentSummary } from './paymentSummary.js';
 // Default exports (ESM version -> Ecmascript module)
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
@@ -137,6 +138,7 @@ export function renderOrderSummary(){
             const productId = link.dataset.productId;
             removeFromCart(productId);
             removeContainer(productId);
+            renderPaymentSummary();
         });
     });
 
@@ -189,6 +191,7 @@ export function renderOrderSummary(){
             } else {
                 alert('Please insert a valid quantity!');
             }
+            renderPaymentSummary();
         });
     })
 
@@ -198,6 +201,7 @@ export function renderOrderSummary(){
             const {productId, deliveryOptionId} = option.dataset;
             updateDeliveryOption(productId,deliveryOptionId);
             renderOrderSummary();
+            renderPaymentSummary();
         });
     });
 }

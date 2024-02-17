@@ -1,3 +1,7 @@
+// Import the products
+import {getProduct} from "./products.js";
+import {getDeliveryOption} from "./deliveryOptions.js";
+
 // Create the cart containing all the products added
 export let cart = JSON.parse(localStorage.getItem('cart'));
 
@@ -23,7 +27,7 @@ export function addToCart(productId){
     // Get the select item and its value
     const selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
     const quantity = Number(selectElement.value);
-    let matchingItem = getProduct(productId);
+    let matchingItem = getCartItem(productId);
 
     // Check whether I found the element or not
     if(matchingItem) matchingItem.quantity += quantity;
@@ -57,7 +61,6 @@ export function updateFromCart(productId,quantity){
 
     // Check if the quantity is 0
     if(q === 0){
-        console.log('Rimosso!');
         removeFromCart(productId);
         return 0;
     } else if(q < 0 || isNaN(q) || !Number.isInteger(q)) return -1;
@@ -99,7 +102,7 @@ export function getProductQuantity(productId){
 }
 
 // Get a product from the cart - function
-function getProduct(productId){
+function getCartItem(productId){
     // Return value
     let ret;
     // Loop through the cart and find the product
@@ -116,10 +119,61 @@ function getProduct(productId){
 // Update the delivery option of a product - procedure
 export function updateDeliveryOption(productId,deliveryOptionId){
     // Get the product
-    let product = getProduct(productId);
+    let product = getCartItem(productId);
 
     // Update the delivery option
     product.deliveryOptionId = deliveryOptionId;
     saveToStorage();
+}
+
+// Get the entire cost of the cart
+export function getFullCost(){
+    // Ret value
+    let ret = 0;
+
+    // Loop through the cart
+    cart.forEach((cartItem)=>{
+        // Obtain the current product
+        let product = getProduct(cartItem.productId);
+
+        // Get the delivery option
+        let option = getDeliveryOption(cartItem.deliveryOptionId);
+
+        // Sum the price times the quantity
+        ret+=(product.priceCents*cartItem.quantity);
+    })
+
+    // Return the value
+    return ret;
+}
+
+// Get the entire shipping cost of the cart
+export function getShippingCost(){
+    // Ret value
+    let ret = 0;
+
+    // Loop through the cart
+    cart.forEach((cartItem)=>{
+        // Get the delivery option
+        let option = getDeliveryOption(cartItem.deliveryOptionId);
+
+        // Sum the price times the quantity
+        ret+=option.priceCents;
+    })
+
+    // Return the value
+    return ret;
+}
+
+// Get the cart quantity
+export function getCartQuantity(){
+    // Ret value
+    let ret = 0;
+
+    cart.forEach((cartItem)=>{
+        ret+=cartItem.quantity;
+    })
+    
+    return ret;
 }
 
