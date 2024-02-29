@@ -3,20 +3,27 @@ import {getProduct} from "./products.js";
 import {getDeliveryOption} from "./deliveryOptions.js";
 
 // Create the cart containing all the products added
-export let cart = JSON.parse(localStorage.getItem('cart'));
+export let cart;
+loadFromStorage();
 
-if(!cart) {
-    cart = [{
-        // Normalizing the data
-        productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        quantity: 2,
-        deliveryOptionId: '1'  
-    },{
-        productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-        quantity: 1,
-        deliveryOptionId: '2'
-    }];
+// Loads the cart from the localStorage - procedure
+export function loadFromStorage(){
+    cart = JSON.parse(localStorage.getItem('cart'));
+
+    if(!cart) {
+        cart = [{
+            // Normalizing the data
+            productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+            quantity: 2,
+            deliveryOptionId: '1'  
+        },{
+            productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+            quantity: 1,
+            deliveryOptionId: '2'
+        }];
+    }
 }
+
 
 function saveToStorage(){
     localStorage.setItem('cart',JSON.stringify(cart));
@@ -25,8 +32,9 @@ function saveToStorage(){
 // Add product - procedure
 export function addToCart(productId){
     // Get the select item and its value
-    const selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
-    const quantity = Number(selectElement.value);
+    // const selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
+    // const quantity = Number(selectElement.value);
+    let quantity = 1;
     let matchingItem = getCartItem(productId);
 
     // Check whether I found the element or not
@@ -40,7 +48,6 @@ export function addToCart(productId){
 
     // Update the cart quantity displayed in the page
     saveToStorage();
-    console.log(cart);
 }
 
 // Remove product - procedure
