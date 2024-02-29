@@ -14,7 +14,7 @@ export function renderOrderSummary(){
     cartSummaryHTML = '';
     // Find the order summary
     const summaryElement = document.querySelector('.js-order-summary');
-    document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
+    //document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
 
     cart.forEach((cartItem)=>{ 
         const productId = cartItem.productId;
@@ -41,7 +41,7 @@ export function renderOrderSummary(){
 
 
         cartSummaryHTML+=`
-        <div class="cart-item-container js-cart-item-container-${matchingProduct.id}">
+        <div class="cart-item-container js-cart-item-container js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">
                 Delivery date: ${dateString}
             </div>
@@ -57,7 +57,7 @@ export function renderOrderSummary(){
                 <div class="product-price">
                     $${formatCurrency(matchingProduct.priceCents)}
                 </div>
-                <div class="product-quantity">
+                <div class="product-quantity js-product-quantity-${matchingProduct.id}">
                     <span>
                     Quantity: <span class="quantity-label js-quantity-label-${matchingProduct.id}">${cartItem.quantity}</span>
                     </span>
@@ -66,7 +66,7 @@ export function renderOrderSummary(){
                     </span>
                     <input class="quantity-input js-quantity-input-${matchingProduct.id} none">
                     <span class="save-quantity-link js-save-quantity-link-${matchingProduct.id} link-primary none" data-product-id=${matchingProduct.id}>Save</span>
-                    <span class="delete-quantity-link link-primary js-delete-link" data-product-id=${matchingProduct.id}>
+                    <span class="delete-quantity-link link-primary js-delete-link js-delete-link-${matchingProduct.id}" data-product-id=${matchingProduct.id}>
                     Delete
                     </span>
                 </div>
@@ -123,7 +123,7 @@ export function renderOrderSummary(){
         // Remove the container from the page
         const container = document.querySelector(`.js-cart-item-container-${productId}`)
         container.remove();
-        document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
+        //document.querySelector('.js-checkout-quantity').innerHTML = updateCartQuantity('.js-checkout-quantity') + " items";
     }
 
     // Deletes a product from the cart
