@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "jasmine-standalone-5.1.1",
+			"path": "../../../Downloads/jasmine-standalone-5.1.1"
+		},
+		{
+			"name": "javascript-amazon-project",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "jasmine-standalone-5.1.1"
+	}
+}
