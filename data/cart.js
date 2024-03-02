@@ -109,7 +109,7 @@ export function getProductQuantity(productId){
 }
 
 // Get a product from the cart - function
-function getCartItem(productId){
+export function getCartItem(productId){
     // Return value
     let ret;
     // Loop through the cart and find the product
