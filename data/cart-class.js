@@ -1,19 +1,19 @@
 // The Cart class
 class Cart{
-    // Fields
-    localStorageKey;
+    // Fields to make them private we just need to add a # at the front
+    #localStorageKey;
     cartItems;
 
     // Basic constructor that takes in a localStorageKey
     constructor(localStorageKey){
-        this.localStorageKey = localStorageKey
+        this.#localStorageKey = localStorageKey
         // Loads the basic storage
-        this.loadFromStorage()
+        this.#loadFromStorage()
     }
 
     // Loads the cart from the localStorage - procedure
-    loadFromStorage(){
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+    #loadFromStorage(){
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
 
         if(!this.cartItems) {
             this.cartItems = [{
@@ -27,12 +27,12 @@ class Cart{
                 deliveryOptionId: '2'
             }];
         }
-        this.saveToStorage()
+        this.#saveToStorage()
     }
 
     // Saves data to the localStorage
-    saveToStorage(){
-        localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+    #saveToStorage(){
+        localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
     }
 
     // Add product - procedure
@@ -53,7 +53,7 @@ class Cart{
         })};
 
         // Update the cart quantity displayed in the page
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 
     // Remove product - procedure
@@ -61,7 +61,7 @@ class Cart{
         this.cartItems.forEach((cartItem,index)=>{
             if(cartItem.productId === productId) this.cartItems.splice(index,1);
         });
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 
     // Update a product - procedure
@@ -82,7 +82,7 @@ class Cart{
             this.cartItems.forEach((cartItem)=>{
                 if(cartItem.productId === productId) cartItem.quantity = q;
             })
-            this.saveToStorage();
+            this.#saveToStorage();
             return 1;
         }
 
@@ -148,7 +148,7 @@ class Cart{
 
         // Update the delivery option
         product.deliveryOptionId = deliveryOptionId;
-        this.saveToStorage();
+        this.#saveToStorage();
     }
 
     // Get the entire cost of the cart
