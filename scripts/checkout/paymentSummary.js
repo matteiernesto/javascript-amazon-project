@@ -9,12 +9,10 @@ export function renderPaymentSummary(){
 
     // Add them together to get the cost before taxes
     const costBeforeTaxes = fullCost + shippingCost;
-    console.log(costBeforeTaxes);
 
     // Add 10%
     const tax = costBeforeTaxes * 0.1;
     const finalCost = Number((costBeforeTaxes + tax).toFixed(0));
-    console.log(finalCost);
 
     const paymentSummaryHTML =  `
     <div class="payment-summary-title">
