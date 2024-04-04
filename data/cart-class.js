@@ -207,9 +207,3 @@ class Cart{
         return "Number of items: " + this.getCartItems() + ", Name: " + this.localStorageKey;
     }
 };
-
-const cart = new Cart("cart-class");
-const businessCart = new Cart("business-cart-class");
-console.log(cart)
-console.log(businessCart)
-console.log(businessCart instanceof Cart)
