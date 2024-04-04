@@ -1,3 +1,36 @@
+import formatCurrency from "../scripts/utils/money.js";
+// The Product object
+class Product {
+  // Fields
+  id; // Unique id for each object
+  image; // Path to the image that has to be rendered on the page
+  name; // Name of the product
+  priceCents; // Price of the product in cents in order to facilitate operations
+  keywords; // Useful when searching this product on the search bar
+  rating; // Rating object
+
+  // Basic constructor
+  constructor(producDetails) {
+    this.id = producDetails.id;
+    this.image = producDetails.image;
+    this.name = producDetails.name;
+    this.priceCents = producDetails.priceCents;
+    this.keywords = producDetails.keywords;
+    this.rating = producDetails.rating;
+  }
+
+  // Returns the image url to be displayed - function
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars*10}.png`;
+  }
+
+  // Gets the correct price format to be displayed - function
+  getPrice(){
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+}
+
+// Converting each objeact into a product one
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -657,7 +690,7 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((product)=>new Product(product))
 
 // Get the product
 export function getProduct(productId){
