@@ -28,6 +28,23 @@ class Product {
   getPrice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML(){
+    return '';
+  }
+}
+
+class Clothing extends Product {
+  #sizeChartLink;
+
+  constructor(producDetails){
+    super(producDetails);
+    this.#sizeChartLink = producDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    return `<a href=${this.#sizeChartLink} target="_blank">Size chart</a>`;
+  }
 }
 
 // Converting each objeact into a product one
@@ -690,7 +707,11 @@ export const products = [
       "mens"
     ]
   }
-].map((product)=>new Product(product))
+].map((product)=> product.type === "clothing" ? new Clothing(product) : new Product(product));
+
+products.forEach((product)=>{
+  if(product instanceof Clothing) console.log('Clothing found!')
+})
 
 // Get the product
 export function getProduct(productId){

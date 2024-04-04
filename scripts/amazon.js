@@ -2,7 +2,7 @@
 // We can use "as" for naming exported variables
 import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
-import {formatCurrency} from './utils/money.js';
+import "../data/products.js";
 
 // Get the product grid element
 const productsGrid = document.querySelector('.products-grid');
@@ -49,6 +49,8 @@ products.forEach((product)=>{
                 <option value="10">10</option>
             </select>
         </div>
+
+        ${product.extraInfoHTML()}
 
         <div class="product-spacer"></div>
 
