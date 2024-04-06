@@ -47,6 +47,26 @@ class Clothing extends Product {
   }
 }
 
+class Appliance extends Product {
+  // Fields
+  instructionsLink;
+  warrantyLink; 
+
+  // Basis constructor
+  constructor(producDetails){
+    super(producDetails);
+    this.instructionsLink = producDetails.instructionsLink;
+    this.warrantyLink = producDetails.warrantyLink;
+  }
+
+  extraInfoHTML(){
+    return `<div>
+      <a href=${this.instructionsLink}>Instructions</a><br>
+      <a href=${this.warrantyLink}>Warranty</a>
+    </div>`
+  }
+}
+
 // Converting each objeact into a product one
 export const products = [
   {
@@ -707,7 +727,18 @@ export const products = [
       "mens"
     ]
   }
-].map((product)=> product.type === "clothing" ? new Clothing(product) : new Product(product));
+].map((product)=> {{
+  if(product.type === "clothing") {
+    return new Clothing(product);
+  } else if(product.keywords.includes("appliances")) {
+    // Adds the new properties
+    product.instructionsLink = "images/appliance-instructions.png";
+    product.warrantyLink = "images/appliance-warranty.png";
+    return new Appliance(product)
+  } else {
+    return new Product(product)
+  }
+}});
 
 // Get the product
 export function getProduct(productId){
