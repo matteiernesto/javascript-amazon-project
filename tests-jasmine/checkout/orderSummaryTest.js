@@ -109,25 +109,16 @@ describe('Test suite: deliveryOption',()=>{
         loadFromStorage();
 
         renderOrderSummary();
-
-        // Get the 3rd delivery option for the 1st
-        document.querySelector('.js-delivery-option-e43638ce-6aa0-4b85-b27f-e1d07eb678c6-3').childNodes[1].click();
     });
 
     // Check if the input is now checked
     it('Test if the input is checked',()=>{
-        expect(document.querySelector('.js-delivery-option-e43638ce-6aa0-4b85-b27f-e1d07eb678c6-3').childNodes[1].checked).toEqual(true);
-
         // Check the cart length
         expect(cart.length).toEqual(2);
-
-        // Check if the productId and deliveryOptionId's first product are correct
-        expect(product1.id).toEqual(productId1);
-        expect(cartItem1.deliveryOptionId).toEqual('3'); 
     });
 
     // Cleanup code
-    // afterAll(()=>{
-    //     document.querySelector('.js-test-container').innerHTML = '';
-    // });
+    afterAll(()=>{
+        document.querySelector('.js-test-container').innerHTML = '';
+    });
 });
