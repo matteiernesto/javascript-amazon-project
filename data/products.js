@@ -709,10 +709,6 @@ export const products = [
   }
 ].map((product)=> product.type === "clothing" ? new Clothing(product) : new Product(product));
 
-products.forEach((product)=>{
-  if(product instanceof Clothing) console.log('Clothing found!')
-})
-
 // Get the product
 export function getProduct(productId){
   // Ret value

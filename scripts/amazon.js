@@ -2,7 +2,6 @@
 // We can use "as" for naming exported variables
 import {cart, addToCart, updateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
-import "../data/date.js";
 
 // Get the product grid element
 const productsGrid = document.querySelector('.products-grid');
