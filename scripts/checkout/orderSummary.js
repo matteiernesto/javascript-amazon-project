@@ -10,7 +10,7 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 let cartSummaryHTML = ``;
 
 // MVC techniqeue (Model -> View -> Controller)
-export function renderOrderSummary(){
+export default function renderOrderSummary(){
     cartSummaryHTML = '';
     // Find the order summary
     const summaryElement = document.querySelector('.js-order-summary');
@@ -199,4 +199,3 @@ export function renderOrderSummary(){
         });
     });
 }
-renderOrderSummary();

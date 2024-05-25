@@ -1,6 +1,9 @@
-import {renderOrderSummary} from '../../scripts/checkout/orderSummary.js';
+import renderOrderSummary from '../../scripts/checkout/orderSummary.js';
 import {loadFromStorage, cart, getCartItem} from '../../data/cart.js';
 import {getProduct} from '../../data/products.js';
+import {loadProducts} from '../../data/products.js';
+
+
 
 describe('Test suite: renderOrderSummary',()=>{
     // Products id
@@ -8,8 +11,21 @@ describe('Test suite: renderOrderSummary',()=>{
     const productId2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d";
 
     // Obtain the products
-    const product1 = getProduct(productId1);
-    const product2 = getProduct(productId2);
+    let product1;
+    let product2;
+
+    // Load the products before all the tests below
+    // We use the "done" function provided by Jasmine that will
+    // wait for a function to be loaded in case it's asynchronus
+    beforeAll((done)=>{
+        // Only then it'll go to the next step
+        // Lets us control the next step
+        loadProducts(() => {
+            done();
+            product1 = getProduct(productId1);
+            product2 = getProduct(productId2);
+        });
+    });
     
     // Shares data between the tests
     beforeEach(()=>{
