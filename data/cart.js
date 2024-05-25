@@ -184,3 +184,16 @@ export function getCartQuantity(){
     return ret;
 }
 
+// Load products from backend
+export function loadCart(fun){
+    // Create the request
+    const request = new XMLHttpRequest();
+
+    request.addEventListener('load',()=>{
+      console.log(request.responseText)
+      fun();
+    })
+  
+    request.open('GET','https://supersimplebackend.dev/cart');
+    request.send();
+  }

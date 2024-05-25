@@ -759,8 +759,8 @@ export let products = [];
 // Load products from backend
 export function loadProducts(fun){
   const request = new XMLHttpRequest();
-  console.log('ciao')
   request.addEventListener('load',()=>{
+    console.log('load products')
     products = JSON.parse(request.responseText).map((product)=> {{
       if(product.type === "clothing") {
         return new Clothing(product);
