@@ -756,7 +756,23 @@ export function getProduct(productId){
 
 export let products = [];
 
-// Load products from backend
+// Maps the products depending on the type of each of those
+function mapProducts(mapping){
+  products = mapping.map((product)=> {{
+    if(product.type === "clothing") {
+      return new Clothing(product);
+    } else if(product.keywords.includes("appliances")) {
+      // Adds the new properties
+      product.instructionsLink = "images/appliance-instructions.png";
+      product.warrantyLink = "images/appliance-warranty.png";
+      return new Appliance(product)
+    } else {
+      return new Product(product)
+    }
+  }});
+}
+
+// Load products from backend (XMLHttpRequest)
 export function loadProducts(fun){
   const request = new XMLHttpRequest();
   request.addEventListener('load',()=>{
@@ -778,4 +794,22 @@ export function loadProducts(fun){
 
   request.open('GET','https://supersimplebackend.dev/products');
   request.send();
+}
+
+// Load products from the backend using fetch() function
+// which basically works with promises
+export function loadProdutsFetch(){
+  const promise = fetch('https://supersimplebackend.dev/products')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log('load products')
+    console.log(data)
+    mapProducts(data);
+  })
+  .catch((err) => {
+    console.error('Request failed! ' + err);
+  })
+  return promise;
 }

@@ -196,4 +196,21 @@ export function loadCart(fun){
   
     request.open('GET','https://supersimplebackend.dev/cart');
     request.send();
-  }
+}
+
+// Load products from the backend using fetch() function
+// which basically works with promises
+export function loadCartFetch(){
+    const promise = fetch('https://supersimplebackend.dev/cart')
+    .then((response) => {
+        return response.text();
+    })
+    .then((data) => {
+      console.log('load products')
+      console.log(data)
+    })
+    .catch((err) => {
+      console.error('Request failed! ' + err);
+    })
+    return promise;
+}

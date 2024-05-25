@@ -1,7 +1,7 @@
 import renderOrderSummary from '../../scripts/checkout/orderSummary.js';
 import {loadFromStorage, cart, getCartItem} from '../../data/cart.js';
 import {getProduct} from '../../data/products.js';
-import {loadProducts} from '../../data/products.js';
+import {loadProducts, loadProdutsFetch} from '../../data/products.js';
 
 
 
@@ -20,7 +20,8 @@ describe('Test suite: renderOrderSummary',()=>{
     beforeAll((done)=>{
         // Only then it'll go to the next step
         // Lets us control the next step
-        loadProducts(() => {
+        loadProdutsFetch()
+        .then(() => {
             done();
             product1 = getProduct(productId1);
             product2 = getProduct(productId2);
