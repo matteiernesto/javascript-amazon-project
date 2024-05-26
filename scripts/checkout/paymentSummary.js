@@ -2,6 +2,9 @@ import { getFullCost } from "../../data/cart.js";
 import { getShippingCost } from "../../data/cart.js";
 import { formatCurrency } from "../utils/money.js";
 import { getCartQuantity } from "../../data/cart.js";
+import { cart } from "../../data/cart.js";
+import { addOrder } from "../../data/orders.js";
+
 export function renderPaymentSummary(){
     // Get the full cost and the shipping
     const fullCost = getFullCost();
@@ -44,10 +47,39 @@ export function renderPaymentSummary(){
         <div class="payment-summary-money">$${formatCurrency(finalCost)}</div>
     </div>
 
-    <button class="place-order-button button-primary">
+    <button class="place-order-button button-primary js-place-order">
         Place your order
     </button>
     `;
 
     document.querySelector('.js-payment-summary').innerHTML = paymentSummaryHTML;
+
+    // Set up an event listener
+    document.querySelector('.js-place-order').addEventListener('click', async () => {
+        // Error handling because this could cause an error due to connection, internet or something else
+        try {
+            const response = await fetch('https://supersimplebackend.dev/orders', {
+                // POST METHOD lets us send data to the backend
+                method: 'POST',
+                // Headers gives the backend more information about our request
+                headers: {
+                    // What type of data we're sending to the backend
+                    'Content-Type': 'application/json'
+                },
+                // The actual data that we're sending to the backend
+                body: JSON.stringify({
+                    cart: cart
+                })
+            })
+            
+            const order = await response.json()
+
+            addOrder(order);
+        } catch (error) {
+            console.error('Error caught! ' + error);
+        }
+
+        // We're going to the orders page
+        window.location.href = 'orders.html';
+    }); 
 }
