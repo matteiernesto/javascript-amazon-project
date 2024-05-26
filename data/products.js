@@ -775,6 +775,8 @@ function mapProducts(mapping){
 // Load products from backend (XMLHttpRequest)
 export function loadProducts(fun){
   const request = new XMLHttpRequest();
+
+
   request.addEventListener('load',()=>{
     console.log('load products')
     products = JSON.parse(request.responseText).map((product)=> {{
@@ -791,6 +793,13 @@ export function loadProducts(fun){
     }});
     fun();
   })
+
+  // Error handling, unexpected errors across the internet
+  // error parameter containing information about it
+  request.addEventListener('error', (error) => {
+    console.error('Unexcepted error. Please try again later.')
+    console.error(error)
+  });
 
   request.open('GET','https://supersimplebackend.dev/products');
   request.send();

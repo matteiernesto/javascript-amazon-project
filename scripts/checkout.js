@@ -1,7 +1,7 @@
 import renderOrderSummary from "./checkout/orderSummary.js";
 import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 import {loadProdutsFetch} from "../data/products.js";
-import {loadCartFetch} from "../data/cart.js";
+import {loadCart, loadCartFetch} from "../data/cart.js";
 // Runs all the code inside this file without importing anything
 //import "../practice/promises.js";
 
@@ -9,8 +9,23 @@ import {loadCartFetch} from "../data/cart.js";
 async function loadPage(){
   // Lets us write asynchronus code like normal code (inside of an async context)
   // Using await lets us get the value returned from a promise and store it in a variable
-  await loadProdutsFetch();
-  await loadCartFetch();
+  try {
+    // If we manually create an error its value will be saved in the error variable
+    // of the catch block of code
+    // throw 'error1';
+    // Put here the code that could cause an error making a request in this case
+    // or something else
+    await loadProdutsFetch();
+    await new Promise((resolve, reject) => {
+      loadCart(() => {
+        // Reject function lets us create an error in the future
+        // reject('hahahhaha');
+        resolve();
+      })
+    })
+  } catch(error) {
+    console.error('Error caught! ' + error);
+  }
 
   // Render the page
   renderOrderSummary();
