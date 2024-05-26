@@ -5,6 +5,26 @@ import {loadCartFetch} from "../data/cart.js";
 // Runs all the code inside this file without importing anything
 //import "../practice/promises.js";
 
+// Makes a function return a promise
+async function loadPage(){
+  // Lets us write asynchronus code like normal code (inside of an async context)
+  // Using await lets us get the value returned from a promise and store it in a variable
+  await loadProdutsFetch();
+  await loadCartFetch();
+
+  // Render the page
+  renderOrderSummary();
+  renderPaymentSummary();
+
+  // It's the same resolve('value2') in strict promises
+  //return 'value2';
+}
+
+// Await lets us wait for a promise to finish
+// before going on the next line of code.
+loadPage();
+
+
 /** BACKEND PROMISE */
 /*
 loadProdutsFetch()
@@ -20,6 +40,7 @@ loadProdutsFetch()
 /* PROMISE.ALL METHOD */
 // We can give it an array of promises and this will wait
 // for all of them to finish and then go to the next step
+/*
 Promise.all([
   loadProdutsFetch(),
   loadCartFetch()
@@ -30,6 +51,7 @@ Promise.all([
   renderOrderSummary();
   renderPaymentSummary();
 });
+*/
 
 
 /* PROMISES METHOD */
