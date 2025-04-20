@@ -1,4 +1,6 @@
-// Check first if the user has just placed a new order from the checkout page
-// by checking the URL
-checkQueryParams();
+import { checkQueryParams } from './utils/url.js';
+
+if(checkQueryParams()){
+    console.log("")
+}
 

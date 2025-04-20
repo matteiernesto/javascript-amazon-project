@@ -186,14 +186,8 @@
         </div>
       </div>
     </div>
-    <script>
-      // URL object accepts a parameter when created which is the url we want to get the information from
-      const url = new URL(window.location.href);
 
-      // Get the params, get() lets us get individual parameters and get out of the url
-      console.log(url.searchParams.get('orderId'));
-      console.log(url.searchParams.get('productId'));
-    </script>
-    <script src="scripts/orders.js"></script>
+    <!-- Entry point -->
+    <script type="module" src="scripts/orders.js"></script>
   </body>
 </html>
