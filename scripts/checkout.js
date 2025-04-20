@@ -1,7 +1,8 @@
 import renderOrderSummary from "./checkout/orderSummary.js";
 import {renderPaymentSummary} from "./checkout/paymentSummary.js";
 import {loadProdutsFetch} from "../data/products.js";
-import {loadCart, loadCartFetch} from "../data/cart.js";
+import {loadCart} from "../data/cart.js";
+import { addEventListeners } from "./listeners.js";
 // Runs all the code inside this file without importing anything
 //import "../practice/promises.js";
 
@@ -30,6 +31,9 @@ async function loadPage(){
   // Render the page
   renderOrderSummary();
   renderPaymentSummary();
+
+  // Add event listeners  
+  // addEventListeners();
 
   // It's the same resolve('value2') in strict promises
   //return 'value2';

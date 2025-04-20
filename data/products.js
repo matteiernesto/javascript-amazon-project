@@ -813,8 +813,6 @@ export function loadProdutsFetch(){
     return response.json();
   })
   .then((data) => {
-    console.log('load products')
-    console.log(data)
     mapProducts(data);
   })
   .catch((err) => {
