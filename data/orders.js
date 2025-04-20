@@ -1,6 +1,6 @@
 export const orders = loadFromStorage() || [];
 
-export function addOrder(order){
+export function addOrder(orderId){
   orders.unshift(order);
   saveToStorage();
 }

@@ -22,3 +22,17 @@ export default function checkQueryParams(parameters){
     // Return the value
     return ret;
 }
+
+/**
+ * This method will get a parameter from the URL.
+ * 
+ * @param parameterName
+ * @return paramater value
+ */
+export function getQueryParam(parameterName){
+    // Get the URL of the page
+    const url = new URL(window.location.href);
+
+    // Return the value
+    return url.searchParams.get(parameterName);
+}
