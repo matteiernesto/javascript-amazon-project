@@ -3,9 +3,6 @@ import { getOrderById } from '../data/orders.js';
 import { renderAllOrders, renderSingleOrder } from './orders/renderOrders.js';
 import { loadProducts } from '../data/products.js';
 
-// Orders container
-let ordersContainer = document.querySelector("orders-grid");
-
 // Get the id of the order
 const orderID = getQueryParam("order-id");
 
