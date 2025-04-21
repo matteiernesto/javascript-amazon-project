@@ -1,33 +1,9 @@
 /**
- * This method will check for some parameters to be present
- * within the current URL of the page.
+ * This method will return the value of a parameter
+ * within the URL.
  * 
- * @param parameters
- *  
- * @returns boolean
- */
-export function checkQueryParams(parameters){
-    // Value to be returned
-    let ret = true;
-
-    // Get the url of the page
-    const url = new URL(window.location.href);
-
-    // Loop through the array and check for the params
-    // to be within the URL
-    parameters.forEach(param => {
-        if(url.searchParams.get(param) == null) ret = false;
-    });
-
-    // Return the value
-    return ret;
-}
-
-/**
- * This method will get a parameter from the URL.
- * 
- * @param parameterName
- * @return paramater value
+ * @param {string} parameterName
+ * @return {string} paramater value
  */
 export function getQueryParam(parameterName){
     // Get the URL of the page

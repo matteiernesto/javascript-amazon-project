@@ -1,13 +1,13 @@
 // Default exports (ESM version -> Ecmascript module)
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
+import { getProduct } from '../../data/products.js';
 
 /**
  * This method will render within the page all the producst which
  * refers back to a single order.
  * 
- * @param products
- * @param id
- * @return rendering of the products
+ * @param {Array<Product>} products
+ * @param {string} id
  */
 export function renderAllProducts(products, id){
     // Loop through the product list and render each product
@@ -16,7 +16,14 @@ export function renderAllProducts(products, id){
     });
 }
 
-function renderSingleProduct(product, id){
+/**
+ * This method will render a single product within the page by displaying
+ * all its informations such as ETA, name, price and quantity.
+ * 
+ * @param {Product} product 
+ * @param {string} id 
+ */
+export function renderSingleProduct(product, id){
     // Get the container in which we will render all the products
     const productsContainer = document.getElementById(id);
 
@@ -24,15 +31,19 @@ function renderSingleProduct(product, id){
     const date = dayjs(product.estimatedDeliveryTime);
     const dateToDisplay = date.format("MMMM D");
 
+    // Get more information about the product to be displayed
+    const productInfo = getProduct(product.productId);
+    console.log(productInfo)
+
     // Add all the product details
     productsContainer.innerHTML += `
     <div class="product-image-container">
-        <img src="images/products/athletic-cotton-socks-6-pairs.jpg">
+        <img src="${productInfo.image}">
     </div>
 
     <div class="product-details">
         <div class="product-name">
-        Black and Gray Athletic Cotton Socks - 6 Pairs
+        ${productInfo.name}
         </div>
         <div class="product-delivery-date">
         Arriving on: ${dateToDisplay}

@@ -27,7 +27,7 @@ export function getOrderById(id){
 
   // Loop through the array and look for the order
   orders.forEach(order => {
-    if(order.orderId === id) ret = order;
+    if(order.id === id) ret = order;
   })
 
   // Return the value
