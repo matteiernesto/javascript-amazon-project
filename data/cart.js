@@ -6,6 +6,14 @@ import {getDeliveryOption} from "./deliveryOptions.js";
 export let cart;
 loadFromStorage();
 
+/**
+ * This method will remove the cart from the local storage seemingly
+ * because an order has just been place by the user.
+ */
+export function removeCart(){
+    localStorage.removeItem("cart");
+}
+
 // Loads the cart from the localStorage - procedure
 export function loadFromStorage(){
     cart = JSON.parse(localStorage.getItem('cart'));

@@ -1,8 +1,13 @@
-import { getFullCost } from "../../data/cart.js";
-import { getShippingCost } from "../../data/cart.js";
+import 
+{ 
+    cart, 
+    getShippingCost, 
+    getCartQuantity, 
+    getFullCost,
+    removeCart
+} 
+from "../../data/cart.js";
 import { formatCurrency } from "../utils/money.js";
-import { getCartQuantity } from "../../data/cart.js";
-import { cart } from "../../data/cart.js";
 import { addOrder } from "../../data/orders.js";
 
 export function renderPaymentSummary(){
@@ -75,11 +80,13 @@ export function renderPaymentSummary(){
             const order = await response.json()
 
             addOrder(order);
+
+            // We're going to the orders page
+            window.location.href = `orders.html?order-id=${order.id}`;
+
+            removeCart();
         } catch (error) {
             console.error('Error caught! ' + error);
         }
-
-        // We're going to the orders page
-        window.location.href = 'orders.html';
     }); 
 }
