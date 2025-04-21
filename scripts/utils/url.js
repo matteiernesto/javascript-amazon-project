@@ -6,7 +6,7 @@
  *  
  * @returns boolean
  */
-export default function checkQueryParams(parameters){
+export function checkQueryParams(parameters){
     // Value to be returned
     let ret = true;
 
