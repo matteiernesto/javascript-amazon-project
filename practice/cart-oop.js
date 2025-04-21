@@ -1,6 +1,6 @@
 // Import the products
-import {getProduct} from "./products.js";
-import {getDeliveryOption} from "./deliveryOptions.js";
+import {getProduct} from "../data/products.js";
+import {getDeliveryOption} from "../data/deliveryOptions.js";
 
 function Cart(localStorageKey){
     const cart = {
